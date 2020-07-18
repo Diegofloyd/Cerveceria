@@ -169,7 +169,15 @@ public class Controlador implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+        String Boton=e.getActionCommand();
+        try{
+            switch(Boton){
+                case "Guardar":
+                    
+            }
+        }catch(Exception ex){
+            
+        }
     }
 
     @Override
