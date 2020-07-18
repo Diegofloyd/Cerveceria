@@ -14,7 +14,7 @@ public class Nodo {
     private String Nombre;
     private String Marca;
     private String porcientoAlcohol;
-    private String Precio;
+    private float Precio;
     private String Tamano;
     private String tipoCerveza;
     private String Presentacion;
@@ -25,7 +25,7 @@ public class Nodo {
         this.Nombre = null;
         this.Marca = null;
         this.porcientoAlcohol = null;
-        this.Precio = null;
+        this.Precio = 0;
         this.Tamano = null;
         this.tipoCerveza = null;
         this.Presentacion = null;
@@ -65,11 +65,11 @@ public class Nodo {
         this.porcientoAlcohol = porcientoAlcohol;
     }
 
-    public String getPrecio() {
+    public float getPrecio() {
         return Precio;
     }
 
-    public void setPrecio(String Precio) {
+    public void setPrecio(int Precio) {
         this.Precio = Precio;
     }
 
