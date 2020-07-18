@@ -274,7 +274,7 @@ public class ListaSimple {
                             token++;
                             break;
                         case 4:
-                            auxiliar.setPrecio();
+                            auxiliar.setPrecio(Integer.parseInt(data.nextToken()));
                             token++;
                             break;
                         case 5:
