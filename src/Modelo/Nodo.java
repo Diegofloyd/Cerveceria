@@ -14,7 +14,7 @@ public class Nodo {
     private String Nombre;
     private String Marca;
     private String porcientoAlcohol;
-    private float Precio;
+    private int Precio;
     private String Tamano;
     private String tipoCerveza;
     private String Presentacion;
@@ -65,7 +65,7 @@ public class Nodo {
         this.porcientoAlcohol = porcientoAlcohol;
     }
 
-    public float getPrecio() {
+    public int getPrecio() {
         return Precio;
     }
 
