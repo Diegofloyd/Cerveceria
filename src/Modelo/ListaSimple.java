@@ -5,6 +5,14 @@
  */
 package Modelo;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.StringTokenizer;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Johan López
@@ -75,12 +83,12 @@ public class ListaSimple {
     }
 
 
-    public void Insertar(String Nombre, String Marca, String porcientoAlcohol, String Precio,  String Tamano, String tipoCerveza, String Presentacion) {
+    public void Insertar(String Nombre, String Marca, String porcientoAlcohol, int Precio,  String Tamano, String tipoCerveza, String Presentacion) {
         Nodo nuevo_N = new Nodo();
-         this.Contador++;
-         nuevo_N.setNum(Contador);
+         this.cont++;
+         nuevo_N.setNum(cont);
         nuevo_N.setNombre(Nombre);
-        nuevo_N.setMarca(Apellido);
+        nuevo_N.setMarca(Marca);
         nuevo_N.setPorcientoAlcohol(porcientoAlcohol);
         nuevo_N.setPrecio(Precio);
         nuevo_N.setTamano(Tamano);
@@ -113,7 +121,7 @@ public class ListaSimple {
                 aux.getPrecio();
                 aux.getTamano();
                 aux.getTipoCerveza();
-                aux.getPresentacion()
+                aux.getPresentacion();
                 
             }
         }
@@ -129,7 +137,7 @@ public class ListaSimple {
        //Contador=Contador-1;
         if (Vacia()==false){
             do{
-                aux.setNum(Contador);
+                aux.setNum(cont);
                 aux=aux.getSiguiente();               
             }while(aux!=null);
         }
@@ -165,31 +173,31 @@ public class ListaSimple {
                this.inicio=null;
                this.fin=null;
                EstadoActual=null;
-               Contador=0;
+               cont=0;
            }
            else{
                if(Actual.getNum()==n && Actual==inicio &&Actual.getSiguiente()==this.fin){
                    this.inicio=this.inicio.getSiguiente();
-                   Contador=Contador-1;
+                   cont=cont-1;
                }
                else{
                    if(ActBorrar.getNum()==n && Actual==inicio && Actual.getSiguiente()==this.fin && ActBorrar.getSiguiente()==null){
                        Actual.setSiguiente(null);
                        this.fin=this.inicio;
-                       Contador--;
+                       cont--;
                    }
                    else{
                        while(Actual.getSiguiente()!=null){
                         if(ActBorrar.getNum()==n){
                            Nodo BorrarSig = ActBorrar.getSiguiente();
                            Actual.setSiguiente(BorrarSig);
-                           Contador--;
+                           cont--;
                            //break;
                         }
                         Actual=Actual.getSiguiente();
                         if(Actual.getSiguiente()!=null){
                            ActBorrar= Actual.getSiguiente();
-                           Contador--;
+                           cont--;
                         }
                        }
                        
@@ -200,14 +208,14 @@ public class ListaSimple {
     }
 
 
-    public void ModificarRegistro(String Nombre, String Marca, String porcientoAlcohol, String Precio,  String Tamano, String tipoCerveza, String Presentacion){
+    public void ModificarRegistro(String Nombre, String Marca, String porcientoAlcohol, int Precio,  String Tamano, String tipoCerveza, String Presentacion, int num){
         Nodo Aux=this.inicio;
         if (Vacia()){
             JOptionPane.showMessageDialog(null,"No hay ningún registro");
         }
         else{
             do{
-                if(Aux.getNum()==Num){
+                if(Aux.getNum()==num){
                     Aux.setNombre(Nombre);
                     Aux.setMarca(Marca);
                     Aux.setPorcientoAlcohol(porcientoAlcohol);
@@ -284,7 +292,7 @@ public class ListaSimple {
                             token++;
                             break;
                         case 4:
-                            auxiliar.setPrecio(String.valueOf(data.nextToken()));
+                            auxiliar.setPrecio();
                             token++;
                             break;
                         case 5:
@@ -303,7 +311,7 @@ public class ListaSimple {
                     }
                 }
                 this.Insertar(auxiliar);
-                Contador=auxiliar.getNum();
+                cont=auxiliar.getNum();
             }
             JOptionPane.showMessageDialog(null, "Los datos han sigo cargados.");
         } catch(Exception e){
