@@ -76,11 +76,10 @@ public class ListaSimple {
         return resp;
     }
 
-
-    public void Insertar(String Nombre, String Marca, String porcientoAlcohol, String Precio,  String Tamano, String tipoCerveza, String Presentacion) {
+    public void Insertar(String Nombre, String Marca, String porcientoAlcohol, int Precio, String Tamano, String tipoCerveza, String Presentacion) {
         Nodo nuevo_N = new Nodo();
-         this.cont++;
-         nuevo_N.setNum(cont);
+        this.cont++;
+        nuevo_N.setNum(cont);
         nuevo_N.setNombre(Nombre);
         nuevo_N.setMarca(Marca);
         nuevo_N.setPorcientoAlcohol(porcientoAlcohol);
@@ -88,7 +87,6 @@ public class ListaSimple {
         nuevo_N.setTamano(Tamano);
         nuevo_N.setTipoCerveza(tipoCerveza);
         nuevo_N.setPresentacion(Presentacion);
-        
 
         if (Vacia()) {
             this.inicio = nuevo_N;
@@ -107,8 +105,6 @@ public class ListaSimple {
         if (Vacia()) {
             JOptionPane.showMessageDialog(null, "No hay ningun registro por mostrar");
 
-           
-
         } else {
             if (aux != null) {
                 aux.getNombre();
@@ -118,7 +114,7 @@ public class ListaSimple {
                 aux.getTamano();
                 aux.getTipoCerveza();
                 aux.getPresentacion();
-                
+
             }
         }
 
@@ -126,5 +122,82 @@ public class ListaSimple {
         return aux;
     }
 
+    public void Indexar() {
+        Nodo aux = this.inicio;
+        cont = cont - 1;
+        if (!Vacia()) {
+            do {
+                aux.num = ++cont;
+                aux = aux.getSiguiente();
+            } while (aux != null);
 
+        }
+
+    }
+
+    public void Modificar(String Nombre, String Marca, String PorcientoAlcohol, int Precio, String Tamano, String tipoCerveza, String Presentacion, int num) {
+        Nodo aux = this.inicio;
+
+        if (Vacia()) {
+            JOptionPane.showMessageDialog(null, "La lista esta vacia");
+        } else {
+            do {
+                if (aux.getNum() == num) {
+                    aux.setNombre(Nombre);
+                    aux.setMarca(Marca);
+                    aux.setPorcientoAlcohol(PorcientoAlcohol);
+                    aux.setPrecio(Precio);
+                    aux.setTamano(Tamano);
+                    aux.setTipoCerveza(tipoCerveza);
+                    aux.setPresentacion(Presentacion);
+
+                }
+                aux = aux.getSiguiente();
+            } while (aux != null);
+        }
+
+    }
+    
+        public void eliminar(int n) {
+        if (!Vacia()) {
+            Nodo actual = this.inicio;
+            Nodo actual_borrar = actual.getSiguiente();
+
+            if (actual.getNum() == n && this.fin == this.inicio) {
+                this.inicio = null;
+                this.fin = null;
+                EstadoActual = null;
+                cont = -1;
+
+            } else {
+                if (actual.getNum() == n && actual == inicio && actual.getSiguiente() == this.fin) {
+                    this.inicio = this.inicio.getSiguiente();
+                    cont = 0;
+                } else {
+                    if (actual_borrar.getNum() == n && actual == inicio && actual.getSiguiente() == this.fin && actual_borrar.getSiguiente() == null) {
+                        actual.setSiguiente(null);
+                        this.fin = this.inicio;
+                        cont--;
+                    } else {
+                        while (actual.getSiguiente() != null) {
+
+                            if (actual_borrar.getNum() == n) {
+                                Nodo borrar_siguiente = actual_borrar.getSiguiente();
+                                actual.setSiguiente(borrar_siguiente);
+                                cont--;
+                                break;
+                            }
+                            actual = actual.getSiguiente();
+                            if (actual.getSiguiente() != null) {
+                                actual_borrar = actual.getSiguiente();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+        
+        
 }
