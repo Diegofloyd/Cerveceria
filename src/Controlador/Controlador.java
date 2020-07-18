@@ -112,7 +112,7 @@ public class Controlador implements ActionListener, KeyListener {
 
         }
         if (this.View.txtPrecio.getText().length() == 0) {
-            nodo.setPrecio(Integer.parseInt(this.View.txtPrecio.getText()));
+            nodo.setPrecio(Integer.parseInt(this.View.txtPrecio.getText().toString()));
             validacion = true;
             ac1 += 1;
         } else {
