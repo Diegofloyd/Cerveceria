@@ -157,8 +157,8 @@ public class ListaSimple {
         }
 
     }
-    
-        public void eliminar(int n) {
+
+    public void eliminar(int n) {
         if (!Vacia()) {
             Nodo actual = this.inicio;
             Nodo actual_borrar = actual.getSiguiente();
@@ -198,6 +198,28 @@ public class ListaSimple {
         }
 
     }
-        
-        
+
+    public Nodo mostrarRegistros() {
+        Nodo aux = new Nodo();
+        aux = EstadoActual;
+        if (Vacia()) {
+            JOptionPane.showMessageDialog(null, "No hay ningun registro por mostrar");
+
+        } else {
+            if (aux != null) {
+                aux.getNombre();
+                aux.getMarca();
+                aux.getPorcientoAlcohol();
+                aux.getPrecio();
+                aux.getTamano();
+                aux.getTipoCerveza();
+                aux.getPresentacion();
+            }
+        }
+
+        this.EstadoActual = aux.getSiguiente();
+        return aux;
+    }
+    
+
 }
