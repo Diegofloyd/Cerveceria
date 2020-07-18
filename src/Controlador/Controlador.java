@@ -120,7 +120,7 @@ public class Controlador implements ActionListener, KeyListener {
             validacion = false;
             ac2 += 1;
         }
-        //----------------------Pendientes------------------------------------------
+        //----------------------Pendientes por revisar------------------------------------------
         if (this.View.cbPorcientoAlcohol.isValid()) {
             String PorcientoA = this.View.cbPorcientoAlcohol.getSelectedItem().toString();
             String edad2 = PorcientoA;
