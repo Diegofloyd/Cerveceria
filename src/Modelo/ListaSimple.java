@@ -5,6 +5,8 @@
  */
 package Modelo;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Johan López
@@ -77,10 +79,10 @@ public class ListaSimple {
 
     public void Insertar(String Nombre, String Marca, String porcientoAlcohol, String Precio,  String Tamano, String tipoCerveza, String Presentacion) {
         Nodo nuevo_N = new Nodo();
-         this.Contador++;
-         nuevo_N.setNum(Contador);
+         this.cont++;
+         nuevo_N.setNum(cont);
         nuevo_N.setNombre(Nombre);
-        nuevo_N.setMarca(Apellido);
+        nuevo_N.setMarca(Marca);
         nuevo_N.setPorcientoAlcohol(porcientoAlcohol);
         nuevo_N.setPrecio(Precio);
         nuevo_N.setTamano(Tamano);
@@ -105,6 +107,8 @@ public class ListaSimple {
         if (Vacia()) {
             JOptionPane.showMessageDialog(null, "No hay ningun registro por mostrar");
 
+           
+
         } else {
             if (aux != null) {
                 aux.getNombre();
@@ -113,7 +117,7 @@ public class ListaSimple {
                 aux.getPrecio();
                 aux.getTamano();
                 aux.getTipoCerveza();
-                aux.getPresentacion()
+                aux.getPresentacion();
                 
             }
         }
