@@ -31,12 +31,19 @@ public class Controlador implements ActionListener, KeyListener {
     private Nodo nodo = new Nodo();
     boolean validacion = false;
     String[] informacion = new String[6];
+    int band, fila, renglon;
+    String PorcientoAlcohol = null;
+    String Tamano = null;
+    String Presentacion = null;
+    String TipoCerveza = null;
 
     String Clara = null;
     String Oscura = null;
     String Ambar = null;
     String Lata = null;
     String Vidrio = null;
+    String Nombre = null, Marca = null;
+    int Precio = 0;
 
     public Controlador(ListaSimple Model, VistaRegistrarC View) {
         this.Model = Model;
@@ -61,6 +68,8 @@ public class Controlador implements ActionListener, KeyListener {
         this.View.btnConsultar.addActionListener(this);
         this.VistaC.btnEliminar.addActionListener(this);
         this.VistaC.btnModificar.addActionListener(this);
+        band = 0;
+        renglon = 0;
     }
 
     public void Iniciar() {
@@ -164,35 +173,118 @@ public class Controlador implements ActionListener, KeyListener {
                 JOptionPane.showMessageDialog(null, "Es necesario seleccionar la presentación");
             }
         }
-        
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String Boton=e.getActionCommand();
-        try{
-            switch(Boton){
+        String Boton = e.getActionCommand();
+        try {
+            switch (Boton) {
                 case "Guardar":
-                    
+                    Model.AgregarRegistro(nodo.getNombre(), nodo.getMarca(), nodo.getPorcientoAlcohol(), nodo.getPrecio(), nodo.getTamano(), nodo.getTipoCerveza(), nodo.getPresentacion());
+                    limpiar();
+                    this.View.btnGuardar.setEnabled(false);
+                    break;
+                case "Consultar":
+
+                    this.Model.EstadoActual = this.Model.getInicio();
+                    VistaC.setVisible(true);
+                    this.VistaC.TablaConsultar.removeAll();
+                    this.Tabla.setNumRows(0);
+
+                    if (Model.getBand() == 0) {
+                        this.Tabla.addColumn("Nombre");
+                        this.Tabla.addColumn("Marca");
+                        this.Tabla.addColumn("Porciento de Alcohol");
+                        this.Tabla.addColumn("Precio");
+                        this.Tabla.addColumn("Tamaño");
+                        this.Tabla.addColumn("Tipo de Cerveza");
+                        this.Tabla.addColumn("Presentación");
+
+                        while (this.Model.EstadoActual != null) {
+                            this.nodo = this.Model.mostrarRegistros();
+                            informacion[0] = nodo.getNombre();
+                            informacion[1] = nodo.getMarca();
+                            informacion[2] = nodo.getPorcientoAlcohol();
+                            informacion[3] = Integer.parseInt(nodo.getPrecio());
+                            informacion[4] = nodo.getTamano();
+                            informacion[5] = nodo.getTipoCerveza();
+                            informacion[7] = String.valueOf(nodo.getTipoCerveza());
+
+                            Tabla.addRow(informacion);
+
+                            Model.setBand(1);
+                        }
+
+                        VistaC.TablaConsultar.setModel(Tabla);
+                    } else {
+                        while (this.Model.EstadoActual != null) {
+                            this.nodo = this.Model.mostrarRegistros();
+                            informacion[0] = nodo.getNombre();
+                            informacion[1] = nodo.getMarca();
+                            informacion[2] = String.valueOf(nodo.getPorcientoAlcohol());
+                            informacion[3] = Integer.parseInt(nodo.getPrecio());
+                            informacion[4] = nodo.getTamano();
+                            informacion[5] = nodo.getTipoCerveza();
+                            informacion[6] = nodo.getPresentacion();
+
+                            Tabla.addRow(informacion);
+
+                            Model.setBand(1);
+                        }
+
+                        VistaC.TablaConsultar.setModel(Tabla);
+
+                    }
+
+                    break;
+                case "Eliminar":
+                    if (this.VistaC.TablaConsultar.getRowCount() == 0) {
+                        this.VistaC.dispose();
+                        JOptionPane.showMessageDialog(null, "No hay registros");
+                        this.View.btnConsultar.setEnabled(false);
+                        band = 1;
+                    } else {
+                        this.Model.Eliminar(this.VistaC.TablaConsultar.getSelectedRow());
+                        this.Model.Indexar();
+                        Tabla = (DefaultTableModel) this.VistaC.TablaConsultar.getModel();// puede que aqui vaya haber un problema
+                        Tabla.removeRow(this.VistaC.TablaConsultar.getSelectedRow());
+
+                    }
+                    break;
+                case "Modificar":
+                    if (this.VistaC.TablaConsultar.getRowCount() >= 0) {
+                        Nombre = this.VistaC.TablaConsultar.getValueAt(this.VistaC.TablaConsultar.getSelectedRow(), 0).toString();
+                        Marca = this.VistaC.TablaConsultar.getValueAt(this.VistaC.TablaConsultar.getSelectedRow(), 1).toString();
+                        Precio = this.VistaC.TablaConsultar.getValueAt(this.VistaC.TablaConsultar.getSelectedRow(), 2).toString();
+                        PorcientoAlcohol = this.VistaC.TablaConsultar.getValueAt(this.VistaC.TablaConsultar.getSelectedRow(), 3).toString();
+                        Tamano = this.VistaC.TablaConsultar.getValueAt(this.VistaC.TablaConsultar.getSelectedRow(), 4).toString();
+                        TipoCerveza = this.VistaC.TablaConsultar.getValueAt(this.VistaC.TablaConsultar.getSelectedRow(), 5).toString();
+                        Presentacion = this.VistaC.TablaConsultar.getValueAt(this.VistaC.TablaConsultar.getSelectedRow(), 6).toString();
+                        this.Model.ModificarRegistro(Nombre, Marca, PorcientoAlcohol, Precio, Tamano, TipoCerveza, Presentacion, this.VistaC.TablaConsultar.getSelectedRow() + 1);
+                        JOptionPane.showMessageDialog(null, "Los datos fueron modificados");
+                    }
+                    break;
             }
-        }catch(Exception ex){
-            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex);
         }
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-       
+
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        
+
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        
+
     }
 
 }
